@@ -1,0 +1,64 @@
+;;; -*- Mode: Lisp -*-
+
+(in-package #:lml2)
+
+(html-file-page ("index")
+  (html
+   (:HEAD (:TITLE "ASDF-Binary-Locations")
+          ((:LINK :REL "stylesheet" :TYPE "text/css" :HREF "style.css"))
+          ((:META :HTTP-EQUIV "Content-Type" :CONTENT "text/html; charset=ISO-8859-1")))
+   (:BODY
+    ((:DIV :CLASS "header")
+     (:H1 "ASDF-Binary-Locations")
+     "How do I work this thing?")
+    
+    (:H3 "What it is")
+    (:B "A") "SDF-" (:B "B") "inary-" (:B "L") "ocations is an "
+    ((:A :href "http://cliki.net/asdf-extension") "ASDF-Extension") " that makes it easy to specify where your Common Lisp binaries (FASL files) should go. If you don't want to specify, then not to worry: ABL also provides intelligent defaults."
+    
+    (:H3 "How to use it")
+    (:OL
+     (:LI "Install ASDF-Binary-Locations using your method of choice.")
+     (:LI "Customize it as desired.")
+     (:LI "ASDF load it before loading anything else (perhaps from your initialization file)"))
+    (:P "Voila, your binaries will be sorted as required but never spindled, folded or mutilated.")
+    
+    (:H3 "What it does")
+    (:P "As you would expect, each Common Lisp implementation has its own format for binary compiled files. If you use multiple implementations (or multiple versions of the same implemention), you'll soon find your source directories littered with various DFSLs, FASLs, CFSLs and so on. This is ugly and makes navigating the sources more difficult. Worse yet, some implementations may share the same file extension or change formats from version to version. This means that you'll find yourself constantly recompiling binaries as you switch from one implementation to the next. That's downright inefficient.")
+    (:P "ASDF-Binary-Locations prevents this nightmare by first providing reasonable default locations for binaries of each Lisp and, secondly, by allowing you to customize the locations as required.")
+    (:H4 "Default Locations")
+    (:P "The default binary location for each Lisp implementation is a subdirectory of the each source directory. To account for different Lisps, Operating Systems, Implementation versions, and so on, ABL borrows code from " ((:A :href "http://common-lisp.net/project/slime/") "SLIME") " to create intelligent directory names as necessary.")
+    (:H4 "Customized Locations")
+    (:P "Documentation coming soon. For now, look at the source and "
+        ((:A :href "http://groups.google.com/group/comp.lang.lisp/msg/bd5ea9d2008ab9fd") "here") ".")
+    
+    (:h3 "Mailing Lists")
+    (:P "ASDF-Binary-Locations isn't a separate project at this point but if you have
+questions, comments or concerns, just drop " (rw:link :mail-gwking :title "Gary King") 
+        " a line.")
+    
+    (:H3 "Where is it")
+    (:P "A " (rw:link :darcs) " repository is available. The darcs command is listed below:")
+    
+    (:PRE " darcs get http://common-lisp.net/project/cl-containers/asdf-binary-locations/darcs/asdf-binary-locations ") 
+    
+    (:P "ASDF-Binary-Locations is also " (rw:link :asdf-install :title "ASDF installable") ". Its CLiki home is right " (rw:link :asdf-binary-locations-cliki :title "where") " you'd expect.")
+    
+    (:P "There's also a handy " (rw:link :asdf-binary-locations-package :title "gzipped tar file") ".")
+    
+    (:H3 "What is happening")
+    (:P)
+    ((:TABLE :BORDER "0") 
+     ((:TR :ALIGN "left" :VALIGN "top")
+      ((:TD :WIDTH "100px") "19 Dec 2005")
+      (:TD "Created by munging great code together and added a bit of spice.")))
+    
+    ((:DIV :CLASS "footer") 
+     "Last updated: " 
+     (lml-princ (metatilities:format-date "%A, %e %B %Y" (get-universal-time))))    
+    
+    ((:DIV :CLASS "common-lisp-link")
+     "Back to " ((:A :HREF "http://common-lisp.net/") "Common-lisp.net") ".")
+    
+    ((:DIV :CLASS "check")
+     ((:A :HREF "http://validator.w3.org/check/referer") "Valid XHTML 1.0 Strict")))))
