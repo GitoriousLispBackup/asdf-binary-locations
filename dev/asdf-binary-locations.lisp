@@ -65,8 +65,11 @@ operating system, and hardware architecture."
 ;;; ---------------------------------------------------------------------------
 
 (defvar *system-configuration-paths* 
+  ()
+  #+Example
   '(("/nfs/home/compbio/d95-bli/share/common-lisp/src/" 
-     "/nfs/home/compbio/d95-bli/lib/common-lisp/cmucl/"))) 
+     "/nfs/home/compbio/d95-bli/lib/common-lisp/cmucl/"))
+  "The *system-configuration-paths* variable specifies mappings from source to target.") 
 
 (defun pathname-prefix-p (prefix pathname) 
   (not (equal (enough-namestring pathname prefix) (namestring pathname)))) 
