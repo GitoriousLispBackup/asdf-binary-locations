@@ -1,5 +1,7 @@
 (in-package asdf)
 
+(export '(*system-configuration-paths*))
+
 ;;; ---------------------------------------------------------------------------
 ;;; this next bit of code stolen from SWANK / SLIME
 ;;; ---------------------------------------------------------------------------
@@ -59,13 +61,13 @@ operating system, and hardware architecture."
                 (format nil "~(~@{~a~^-~}~)" lisp version os arch))))))
 
 ;;; ---------------------------------------------------------------------------
-;;; and this bit of code mostly stolen from Bjšrn Lindberg
+;;; and this bit of code mostly stolen from Bjorn Lindberg
 ;;; see http://www.cliki.net/asdf%20binary%20locations
 ;;; and http://groups.google.com/group/comp.lang.lisp/msg/bd5ea9d2008ab9fd
 ;;; ---------------------------------------------------------------------------
 
 (defvar *system-configuration-paths* 
-  ()
+  nil
   #+Example
   '(("/nfs/home/compbio/d95-bli/share/common-lisp/src/" 
      "/nfs/home/compbio/d95-bli/lib/common-lisp/cmucl/"))
@@ -80,20 +82,25 @@ operating system, and hardware architecture."
 (defmethod output-files :around ((operation compile-op) (c source-file)) 
   (let ((source (component-pathname c)) 
         (paths (call-next-method))) 
-    (mapcar (lambda (path) 
-              (loop for (from to) in *system-configuration-paths* 
-                    when (pathname-prefix-p from source) 
-                    do (return 
-                        (merge-pathnames 
-                         (make-pathname :type (pathname-type path)) 
-                         (merge-pathnames (enough-namestring source from) 
-                                          to))) 
-                    
-                    finally (return 
-                             (make-pathname 
-                              :type (pathname-type path)
-                              :directory (append (pathname-directory path)
-                                                 (list (implementation-specific-directory-name)))
-                              :defaults path)))) 
-            paths)))
+    (determine-mapping source paths)))
+
+(defun determine-mapping (source possible-paths)
+  (mapcar (lambda (path) 
+	    (loop for (from to) in *system-configuration-paths* 
+	       when (pathname-prefix-p from source) 
+	       do (return 
+		    (if to
+			(merge-pathnames 
+			 (make-pathname :type (pathname-type path)) 
+			 (merge-pathnames (enough-namestring source from) 
+					  to))
+			path))
+		 
+	       finally (return 
+			 (make-pathname 
+			  :type (pathname-type path)
+			  :directory (append (pathname-directory path)
+					     (list (implementation-specific-directory-name)))
+			  :defaults path)))) 
+	  possible-paths))
 
