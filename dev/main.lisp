@@ -79,11 +79,6 @@ operating system, and hardware architecture."
 ;; Instead of just returning the path when we don't find a mapping, we
 ;; stick stuff into the appropriate binary directory based on the implementation
 ;;
-(defmethod output-files :around ((operation compile-op) (c source-file)) 
-  (let ((source (component-pathname c)) 
-        (paths (call-next-method))) 
-    (determine-mapping source paths)))
-
 (defun determine-mapping (source possible-paths)
   (mapcar (lambda (path) 
 	    (loop for (from to) in *system-configuration-paths* 
@@ -103,4 +98,9 @@ operating system, and hardware architecture."
 					     (list (implementation-specific-directory-name)))
 			  :defaults path)))) 
 	  possible-paths))
+
+(defmethod output-files :around ((operation compile-op) (c source-file)) 
+  (let ((source (component-pathname c)) 
+        (paths (call-next-method))) 
+    (determine-mapping source paths)))
 
