@@ -32,4 +32,9 @@ DISCUSSION
                 "dev"
                 :components ((:load-only-cl-source-file "main")
                              
-                             (:static-file "notes.text")))))
+                             (:static-file "notes.text")))
+               
+               (:module
+                "website"
+                :components ((:module "source"
+                                      :components ((:static-file "index.lml")))))))
