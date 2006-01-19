@@ -5,7 +5,8 @@
 (html-file-page ("index")
   (html
    (:HEAD (:TITLE "ASDF-Binary-Locations")
-          (generate-shared-headers))
+          (generate-shared-headers)
+          )
    (:BODY
     (generate-two-line-header
      "ASDF-Binary-Locations" "How do I work this thing?")
@@ -50,6 +51,14 @@ questions, comments or concerns, just drop " (rw:link :mail-gwking :title "Gary 
        (:P "ASDF-Binary-Locations is also " (rw:link :asdf-install :title "ASDF installable") ". Its CLiki home is right " (rw:link :asdf-binary-locations-cliki :title "where") " you'd expect.")
        
        (:P "There's also a handy " (rw:link :asdf-binary-locations-package :title "gzipped tar file") ".")
+       
+       (:H3 "Notes and Issues")
+       (:UL
+        (:LI "SBCL ships with several included ASDF libraries. Unless you tell it not to, ABL will try to place the compiled files for these into new directories which may fail due to directory permissions. You can tell ABL to not mess with the SBCL files by added something like the following to your ~/.sbclrc file"
+             (:PRE  
+";; force SBCL things to stay in SBCL
+\(defvar asdf::*system-configuration-paths*
+  '\(\(\"/usr/local/lib/sbcl/\" nil\)\)\)")))
        
        ((:A :NAME "news"))
        (:H3 "What is happening")
