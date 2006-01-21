@@ -1,6 +1,8 @@
-(defpackage asdf-binary-locations
-  (:use "COMMON-LISP" "ASDF"))
-(in-package asdf-binary-locations)
+(in-package asdf)
+
+;(defpackage asdf-binary-locations
+;  (:use "COMMON-LISP" "ASDF"))
+;(in-package asdf-binary-locations)
 
 (export '(*system-configuration-paths*))
 
