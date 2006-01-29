@@ -11,11 +11,10 @@
     (generate-two-line-header
      "ASDF-Binary-Locations" "How do I work this thing?")
     
-    ((:TABLE :CLASS "system-overview")
-     (:tr
-      (generate-system-sidebar)
-      
-      ((:TD :CLASS "system-description")
+    ((:DIV :CLASS "contents")
+     (generate-system-sidebar)
+     
+     ((:DIV :CLASS "system-description")
        (:H3 "What it is")
        (:B "A") "SDF-" (:B "B") "inary-" (:B "L") "ocations is an "
        ((:A :href "http://cliki.net/asdf-extension") "ASDF-Extension") " that makes it easy to specify where your Common Lisp binaries (FASL files) should go. If you don't want to specify, then not to worry: ABL also provides intelligent defaults."
@@ -65,7 +64,7 @@ questions, comments or concerns, just drop " (rw:link :mail-gwking :title "Gary 
        ((:TABLE :BORDER "0") 
         ((:TR :ALIGN "left" :VALIGN "top")
          ((:TD :WIDTH "100px") "19 Dec 2005")
-         (:TD "Created by munging great code together and added a bit of spice."))))))
+         (:TD "Created by munging great code together and added a bit of spice.")))))
     
     
     ((:DIV :CLASS "footer")
