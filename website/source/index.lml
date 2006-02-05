@@ -64,7 +64,7 @@ questions, comments or concerns, just drop " (rw:link :mail-gwking :title "Gary 
        ((:TABLE :CLASS "system-news") 
         (:TR
          (:TH) "19 Dec 2005")
-         (:TD "Created by munging great code together and added a bit of spice.")))))
+         (:TD "Created by munging great code together and added a bit of spice."))))
     
     
     ((:DIV :CLASS "footer")
