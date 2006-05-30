@@ -1,10 +1,7 @@
 (in-package #:asdf)
 
-;(defpackage asdf-binary-locations
-;  (:use "COMMON-LISP" "ASDF"))
-;(in-package #:asdf-binary-locations)
-
-(export '(*system-configuration-paths*))
+(export '(*system-configuration-paths*
+          determine-mapping))
 
 ;;; ---------------------------------------------------------------------------
 ;;; this next bit of code stolen from SWANK / SLIME
@@ -87,28 +84,35 @@ directory.")
 ;; Instead of just returning the path when we don't find a mapping, we
 ;; stick stuff into the appropriate binary directory based on the implementation
 ;;
-(defun determine-mapping (source possible-paths)
+(defgeneric determine-mapping (system operation component source possible-paths)
+  (:documentation ""))
+
+(defmethod determine-mapping ((system system) operation component source possible-paths)
+  (declare (ignore operation component))
+  (find-system-configuration-mapping source possible-paths *system-configuration-paths*))
+
+(defmethod find-system-configuration-mapping (source possible-paths path-mappings)
   (mapcar (lambda (path) 
-	    (loop for (from to) in *system-configuration-paths* 
-	       when (pathname-prefix-p from source) 
-	       do (return 
-		    (if to
+	    (loop for (from to) in path-mappings 
+	          when (pathname-prefix-p from source) 
+	          do (return 
+		      (if to
 			(merge-pathnames 
 			 (make-pathname :type (pathname-type path)) 
 			 (merge-pathnames (enough-namestring source from) 
 					  to))
 			path))
-		 
-	       finally (return 
-			 (make-pathname 
-			  :type (pathname-type path)
-			  :directory (append (pathname-directory path)
-					     (list (implementation-specific-directory-name)))
-			  :defaults path)))) 
+		  
+	          finally (return 
+			   (make-pathname 
+			    :type (pathname-type path)
+			    :directory (append (pathname-directory path)
+					       (list (implementation-specific-directory-name)))
+			    :defaults path)))) 
 	  possible-paths))
 
-(defmethod output-files :around ((operation compile-op) (c source-file)) 
-  (let ((source (component-pathname c)) 
+(defmethod output-files :around ((operation compile-op) (component source-file)) 
+  (let ((source (component-pathname component )) 
         (paths (call-next-method))) 
-    (determine-mapping source paths)))
+    (determine-mapping (component-system component) operation component source paths)))
 
