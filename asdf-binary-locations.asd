@@ -4,18 +4,19 @@
 
 Author: Gary King
 
-DISCUSSION
-
 |#
 
 (in-package :common-lisp-user)
 (defpackage :asdf-binary-locations-system (:use #:asdf #:cl))
 (in-package :asdf-binary-locations-system)
 
-(defclass load-only-cl-source-file (cl-source-file)
+(defclass load-only-file-mixin ()
   ())
 
-(defmethod perform ((op compile-op) (component load-only-cl-source-file))
+(defclass load-only-cl-source-file (load-only-file-mixin cl-source-file)
+  ())
+
+(defmethod perform ((op compile-op) (component load-only-file-mixin))
   nil)
 
 (defmethod perform ((op load-op) (component load-only-cl-source-file))
