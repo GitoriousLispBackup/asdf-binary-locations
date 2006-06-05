@@ -35,7 +35,7 @@ directory.")
 ;; obsolete variable check
 (when (boundp '*system-configuration-paths*)
   (warn "The variable *system-configuration-paths* has been renamed to *source-to-target-mappings*. Please update your configuration files.")
-  (setf *source-to-target-mappings* *system-configuration-paths*))
+  (setf *source-to-target-mappings* (symbol-value '*system-configuration-paths*)))
 
 
 (defparameter *implementation-features*
