@@ -14,7 +14,7 @@
 
 (defparameter *centralize-lisp-binaries*
   nil
-  "If true, compiled lisp files without an explicit mapping (see *source-to-target-mappings*) wil be placed in subdirectories of *default-toplevel-directory*. If false, then compiled lisp files without an explicity mapping will be placed in subdirectories of their sources.")
+  "If true, compiled lisp files without an explicit mapping (see *source-to-target-mappings*) will be placed in subdirectories of *default-toplevel-directory*. If false, then compiled lisp files without an explicitly mapping will be placed in subdirectories of their sources.")
 
 (defparameter *default-toplevel-directory*
   (merge-pathnames
