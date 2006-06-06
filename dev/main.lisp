@@ -46,7 +46,7 @@ directory.")
   '(:macosx :linux :windows :mswindows :win32 :solaris :darwin :sunos :unix :apple))
 
 (defparameter *architecture-features*
-  '(:powerpc :ppc :x86 :x86-64 :i686 :pc386 :iapx386 :sparc))
+  '(:powerpc :ppc :x86 :x86-64 :i686 :pc386 :iapx386 :sparc :pentium3))
 
 (defun lisp-version-string ()
   #+cmu       (substitute #\- #\/ (lisp-implementation-version))
