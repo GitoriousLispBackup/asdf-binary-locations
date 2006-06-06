@@ -63,7 +63,7 @@ questions, comments or concerns, just drop " (rw:link :mail-gwking :title "Gary 
 \(defvar asdf::*source-to-target-mappings*
   '\(\(\"/usr/local/lib/sbcl/\" nil\)\)\)")))
        
-       ((:A :NAME "news"))
+       ((:A :id "news"))
        (:H3 "What is happening")
        ((:TABLE :CLASS "system-news") 
         (:tr
