@@ -151,3 +151,14 @@ If *centralize-lisp-binaries* is false, then the default mapping is to place the
     (output-files-for-system-and-operation 
      (component-system component) operation component source paths)))
 
+;; load customizations
+(eval-when (:load-toplevel :execute)
+  (let* ((*package* (find-package :asdf))
+         (file (probe-file (merge-pathnames
+			    (make-pathname :name "asdf-binary-locations"
+                                           :type "lisp"
+                                           :directory '(:relative ".asdf"))
+			    (truename (user-homedir-pathname)))))
+         )
+    (when file (load file))))
+
