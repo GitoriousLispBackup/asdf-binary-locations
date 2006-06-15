@@ -153,7 +153,7 @@ If *centralize-lisp-binaries* is false, then the default mapping is to place the
 
 ;; load customizations
 (eval-when (:load-toplevel :execute)
-  (let* ((*package* (find-package :asdf))
+  (let* ((*package* (find-package :common-lisp))
          (file (probe-file (merge-pathnames
 			    (make-pathname :name "asdf-binary-locations"
                                            :type "lisp"
