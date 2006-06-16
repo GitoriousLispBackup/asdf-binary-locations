@@ -48,14 +48,18 @@ directory.")
 (defparameter *architecture-features*
   '(:powerpc :ppc :x86 :x86-64 :i686 :pc386 :iapx386 :sparc :pentium3))
 
+;; note to gwking: this is in slime, system-check, and system-check-server too
 (defun lisp-version-string ()
   #+cmu       (substitute #\- #\/ (lisp-implementation-version))
   #+sbcl      (lisp-implementation-version)
   #+ecl       (lisp-implementation-version)
+  #+scl       (lisp-implementation-version)
   #+gcl       (let ((s (lisp-implementation-version))) (subseq s 4))
-  #+openmcl   (format nil "~d.~d"
+  #+openmcl   (format nil "~d.~d~@[-~d~]"
                       ccl::*openmcl-major-version* 
-                      ccl::*openmcl-minor-version*)
+                      ccl::*openmcl-minor-version*
+                      #+ppc64-target 64 
+                      #-ppc64-target nil)
   #+lispworks (lisp-implementation-version)
   #+allegro   (concatenate 'string (if (eq 'h 'H) "A" "M") 
                            excl::*common-lisp-version-number*)
