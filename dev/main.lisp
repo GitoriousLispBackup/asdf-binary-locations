@@ -10,7 +10,12 @@
 (export '(*source-to-target-mappings*
           *default-toplevel-directory*
           *centralize-lisp-binaries*
+          *include-per-user-information*
           output-files-for-system-and-operation))
+
+(defparameter *include-per-user-information*
+  nil
+  "When *centralize-lisp-binaries* is true this variable controls whether or not to customize the output directory based on the current user. It can be nil, t or a string. If it is nil \(the default\), then no additional information will be added to the output directory. If it is t, then the user's name \(as taken from the return value of #'user-homedir-pathname\) will be included into the centralized path (just before the lisp-implementation directory). Finally, if *include-per-user-information* is a string, then this string will be included in the output-directory.")
 
 (defparameter *centralize-lisp-binaries*
   nil
@@ -117,37 +122,44 @@ operating system, and hardware architecture."
 If *centralize-lisp-binaries* is false, then the default mapping is to place the output in a subdirectory of the source. The subdirectory is named using the Lisp implementation \(see implementation-specific-directory-name\). If *centralize-lisp-binaries* is true, then the default mapping is to place the output in subdirectories of *default-toplevel-directory* where the subdirectory structure will mirror that of the source."))
 
 (defmethod output-files-using-mappings (source possible-paths path-mappings)
-  (mapcar (lambda (path) 
-	    (loop for (from to) in path-mappings 
-	          when (pathname-prefix-p from source) 
-	          do (return 
-		      (if to
-			(merge-pathnames 
-			 (make-pathname :type (pathname-type path)) 
-			 (merge-pathnames (enough-namestring source from) 
-					  to))
-			path))
+  (mapcar 
+   (lambda (path) 
+     (loop for (from to) in path-mappings 
+	when (pathname-prefix-p from source) 
+	do (return 
+	     (if to
+		 (merge-pathnames 
+		  (make-pathname :type (pathname-type path)) 
+		  (merge-pathnames (enough-namestring source from) 
+				   to))
+		 path))
 		  
-	          finally (return 
-			   ;; Instead of just returning the path when we 
-                           ;; don't find a mapping, we stick stuff into 
-                           ;; the appropriate binary directory based on 
-                           ;; the implementation
-                           (if *centralize-lisp-binaries*
-                             (merge-pathnames
-                              (make-pathname
-                               :type (pathname-type path)
-                               :directory `(:relative
-                                            ,(implementation-specific-directory-name)
-                                            ,@(rest (pathname-directory path)))
-                               :defaults path)
-                              *default-toplevel-directory*)
-                             (make-pathname 
-			      :type (pathname-type path)
-			      :directory (append
-                                          (pathname-directory path)
-                                          (list (implementation-specific-directory-name)))
-			      :defaults path))))) 
+	finally
+	  (return 
+	    ;; Instead of just returning the path when we 
+	    ;; don't find a mapping, we stick stuff into 
+	    ;; the appropriate binary directory based on 
+	    ;; the implementation
+	    (if *centralize-lisp-binaries*
+		(merge-pathnames
+		 (make-pathname
+		  :type (pathname-type path)
+		  :directory `(:relative
+			       ,@(cond ((eq *include-per-user-information* t)
+					(cdr (pathname-directory
+					      (user-homedir-pathname))))
+				       ((not (null *include-per-user-information*))
+					(list *include-per-user-information*)))
+			       ,(implementation-specific-directory-name)
+			       ,@(rest (pathname-directory path)))
+		  :defaults path)
+		 *default-toplevel-directory*)
+		(make-pathname 
+		 :type (pathname-type path)
+		 :directory (append
+			     (pathname-directory path)
+			     (list (implementation-specific-directory-name)))
+		 :defaults path))))) 
 	  possible-paths))
 
 (defmethod output-files :around ((operation compile-op) (component source-file)) 
