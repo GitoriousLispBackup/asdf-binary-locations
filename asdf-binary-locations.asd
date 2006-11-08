@@ -23,7 +23,7 @@ Author: Gary King
   (load (component-pathname component)))
 
 (defsystem asdf-binary-locations
-  :version "0.1"
+  :version "0.2.0"
   :author "Gary Warren King <gwking@metabang.com>"
   :maintainer "Gary Warren King <gwking@metabang.com>"
   :licence "MIT Style License"
