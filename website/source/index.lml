@@ -66,7 +66,16 @@ questions, comments or concerns, just drop " (rw:link :mail-gwking :title "Gary 
        ((:A :id "news"))
        (:H3 "What is happening")
        ((:TABLE :CLASS "system-news") 
-        (:tr
+	(:tr
+         (:th "9 October 2006")
+         (:td "Made compatible with SLIME's 64-bit Allegro locations (Thanks to Matthias Koeppe."))       
+	(:tr
+         (:th "31 July 2006")
+         (:td "Added *include-per-user-information* (Thanks to Erik Enge)."))
+	(:tr
+         (:th "15 June 2006")
+         (:td "Happy now on 64-bit OpenMCL. Thanks to Joshua Moody."))
+	(:tr
          (:th "5 June 2006")
          (:td "Thanks to Peter Seibel and Robert Goldman for helping to push out a bunch of useful improvements."))
         (:TR

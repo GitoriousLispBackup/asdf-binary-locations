@@ -1,5 +1,6 @@
 ;;; ---------------------------------------------------------------------------
-;;; and this bit of code mostly stolen from Bjorn Lindberg
+;;; this bit of code was stolen from Bjorn Lindberg and then it grew!
+;;;
 ;;; see http://www.cliki.net/asdf%20binary%20locations
 ;;; and http://groups.google.com/group/comp.lang.lisp/msg/bd5ea9d2008ab9fd
 ;;; ---------------------------------------------------------------------------
@@ -66,9 +67,16 @@ directory.")
                       #+ppc64-target 64 
                       #-ppc64-target nil)
   #+lispworks (lisp-implementation-version)
-  #+allegro   (concatenate 'string (if (eq 'h 'H) "A" "M") 
-                           excl::*common-lisp-version-number*
-			   #+64bit "-64")
+;; my version
+;  #+allegro   (concatenate 'string (if (eq 'h 'H) "A" "M") 
+;                           excl::*common-lisp-version-number*
+;			   #+64bit "-64")
+  ;; from Matthias Koepee
+  #+allegro   (format nil
+                      "~A~A~A"
+                      excl::*common-lisp-version-number*
+                      (if (eq 'h 'H) "A" "M")     ; ANSI vs MoDeRn
+                      (if (member :64bit *features*) "-64bit" ""))
   #+clisp     (let ((s (lisp-implementation-version)))
                 (subseq s 0 (position #\space s)))
   #+armedbear (lisp-implementation-version)
