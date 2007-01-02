@@ -16,32 +16,30 @@
 
 (defparameter *include-per-user-information*
   nil
-  "When *centralize-lisp-binaries* is true this variable controls whether or not to customize the output directory based on the current user. It can be nil, t or a string. If it is nil \(the default\), then no additional information will be added to the output directory. If it is t, then the user's name \(as taken from the return value of #'user-homedir-pathname\) will be included into the centralized path (just before the lisp-implementation directory). Finally, if *include-per-user-information* is a string, then this string will be included in the output-directory.")
+  "When \*centralize-lisp-binaries\* is true this variable controls whether or not to customize the output directory based on the current user. It can be nil, t or a string. If it is nil \(the default\), then no additional information will be added to the output directory. If it is t, then the user's name \(as taken from the return value of #'user-homedir-pathname\) will be included into the centralized path (just before the lisp-implementation directory). Finally, if \*include-per-user-information\* is a string, then this string will be included in the output-directory.")
 
 (defparameter *centralize-lisp-binaries*
   nil
-  "If true, compiled lisp files without an explicit mapping (see *source-to-target-mappings*) will be placed in subdirectories of *default-toplevel-directory*. If false, then compiled lisp files without an explicitly mapping will be placed in subdirectories of their sources.")
+  "If true, compiled lisp files without an explicit mapping (see \*source-to-target-mappings\*) will be placed in subdirectories of \*default-toplevel-directory\*. If false, then compiled lisp files without an explicitly mapping will be placed in subdirectories of their sources.")
 
 (defparameter *default-toplevel-directory*
   (merge-pathnames
    (make-pathname :directory '(:relative ".fasls"))
    (user-homedir-pathname))
-  "If *centralize-lisp-binaries* is true, then compiled lisp files without an explicit mapping \(see *source-to-target-mappings*\) will be placed in subdirectories of *default-toplevel-directory*.")
+  "If \*centralize-lisp-binaries\* is true, then compiled lisp files without an explicit mapping \(see \*source-to-target-mappings\*\) will be placed in subdirectories of \*default-toplevel-directory\*.")
 
 (defvar *source-to-target-mappings* 
   nil
   #+Example
   '(("/nfs/home/compbio/d95-bli/share/common-lisp/src/" 
      "/nfs/home/compbio/d95-bli/lib/common-lisp/cmucl/"))
-  "The *source-to-target-mappings* variable specifies mappings from source to target.
-If the target is nil, then it means to not map the source to anything. I.e., to leave 
-it as is. This has the effect of turning off ASDF-Binary-Locations for the given source
-directory.")
+  "The \*source-to-target-mappings\* variable specifies mappings from source to target. If the target is nil, then it means to not map the source to anything. I.e., to leave it as is. This has the effect of turning off ASDF-Binary-Locations for the given source directory.")
 
 ;; obsolete variable check
 (when (boundp '*system-configuration-paths*)
-  (warn "The variable *system-configuration-paths* has been renamed to *source-to-target-mappings*. Please update your configuration files.")
-  (setf *source-to-target-mappings* (symbol-value '*system-configuration-paths*)))
+  (warn "The variable \*system-configuration-paths\* has been renamed to \*source-to-target-mappings\*. Please update your configuration files.")
+  (setf *source-to-target-mappings* 
+	(symbol-value '*system-configuration-paths*)))
 
 
 (defparameter *implementation-features*
@@ -49,7 +47,8 @@ directory.")
     :corman :cormanlisp :armedbear :gcl :ecl))
 
 (defparameter *os-features*
-  '(:macosx :linux :windows :mswindows :win32 :solaris :darwin :sunos :unix :apple))
+  '(:macosx :linux :windows :mswindows :win32 :solaris 
+    :darwin :sunos :unix :apple))
 
 (defparameter *architecture-features*
   '(:powerpc :ppc :x86 :x86-64 :i686 :pc386 :iapx386 :sparc :pentium3))
@@ -67,21 +66,21 @@ directory.")
                       #+ppc64-target 64 
                       #-ppc64-target nil)
   #+lispworks (lisp-implementation-version)
-;; my version
-;  #+allegro   (concatenate 'string (if (eq 'h 'H) "A" "M") 
-;                           excl::*common-lisp-version-number*
-;			   #+64bit "-64")
-  ;; from Matthias Koepee
   #+allegro   (format nil
                       "~A~A~A"
                       excl::*common-lisp-version-number*
-                      (if (eq 'h 'H) "A" "M")     ; ANSI vs MoDeRn
+					; ANSI vs MoDeRn
+		      ;; thanks to Robert Goldman and Charley Cox for
+		      ;; an improvement to my hack
+		      (if (eq excl:*current-case-mode* 
+			      :case-sensitive-lower) "M" "A")
                       (if (member :64bit *features*) "-64bit" ""))
   #+clisp     (let ((s (lisp-implementation-version)))
                 (subseq s 0 (position #\space s)))
   #+armedbear (lisp-implementation-version)
   #+cormanlisp (lisp-implementation-version)
   #+digitool   (subseq (lisp-implementation-version) 8))
+
 
 (defparameter *implementation-specific-directory-name* nil)
 
