@@ -29,11 +29,19 @@
   "If \*centralize-lisp-binaries\* is true, then compiled lisp files without an explicit mapping \(see \*source-to-target-mappings\*\) will be placed in subdirectories of \*default-toplevel-directory\*.")
 
 (defvar *source-to-target-mappings* 
+  #-sbcl
   nil
-  #+Example
-  '(("/nfs/home/compbio/d95-bli/share/common-lisp/src/" 
-     "/nfs/home/compbio/d95-bli/lib/common-lisp/cmucl/"))
-  "The \*source-to-target-mappings\* variable specifies mappings from source to target. If the target is nil, then it means to not map the source to anything. I.e., to leave it as is. This has the effect of turning off ASDF-Binary-Locations for the given source directory.")
+  #+sbcl
+  (list (list (princ-to-string (sb-ext:posix-getenv "SBCL_HOME")) nil))
+  "The \*source-to-target-mappings\* variable specifies mappings from source to target. If the target is nil, then it means to not map the source to anything. I.e., to leave it as is. This has the effect of turning off ASDF-Binary-Locations for the given source directory. Examples:
+
+    ;; compile everything in .../src and below into .../cmucl
+    '((\"/nfs/home/compbio/d95-bli/share/common-lisp/src/\" 
+       \"/nfs/home/compbio/d95-bli/lib/common-lisp/cmucl/\"))
+
+    ;; leave SBCL innards alone (SBCL specific)
+    (list (list (princ-to-string (sb-ext:posix-getenv \"SBCL_HOME\")) nil))
+")
 
 ;; obsolete variable check
 (when (boundp '*system-configuration-paths*)
