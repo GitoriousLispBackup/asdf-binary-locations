@@ -25,7 +25,7 @@
 (defparameter *default-toplevel-directory*
   (merge-pathnames
    (make-pathname :directory '(:relative ".fasls"))
-   (user-homedir-pathname))
+   (truename (user-homedir-pathname)))
   "If \*centralize-lisp-binaries\* is true, then compiled lisp files without an explicit mapping \(see \*source-to-target-mappings\*\) will be placed in subdirectories of \*default-toplevel-directory\*.")
 
 (defvar *source-to-target-mappings* 
