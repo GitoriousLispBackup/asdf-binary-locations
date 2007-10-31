@@ -1,4 +1,4 @@
-;;;-*- Mode: Lisp; Package: COMMON-LISP-USER -*-
+;;;-*- Mode: Lisp; Package: common-lisp-user -*-
 
 #| simple-header
 
@@ -6,9 +6,9 @@ Author: Gary King
 
 |#
 
-(in-package :common-lisp-user)
-(defpackage :asdf-binary-locations-system (:use #:asdf #:cl))
-(in-package :asdf-binary-locations-system)
+(in-package #:common-lisp-user)
+(defpackage #:asdf-binary-locations-system (:use #:asdf #:cl))
+(in-package #:asdf-binary-locations-system)
 
 (defclass load-only-file-mixin ()
   ())
@@ -23,7 +23,7 @@ Author: Gary King
   (load (component-pathname component)))
 
 (defsystem asdf-binary-locations
-  :version "0.2.3"
+  :version "0.2.4"
   :author "Gary Warren King <gwking@metabang.com>"
   :maintainer "Gary Warren King <gwking@metabang.com>"
   :licence "MIT Style License"
@@ -31,11 +31,13 @@ Author: Gary King
   
   :components ((:module 
                 "dev"
-                :components ((:load-only-cl-source-file "main")
-                             
-                             (:static-file "notes.text")))
+                :components
+		((:load-only-cl-source-file "main")
+		 
+		 (:static-file "notes.text")))
                
                (:module
                 "website"
-                :components ((:module "source"
-                                      :components ((:static-file "index.lml")))))))
+                :components
+		((:module "source"
+			  :components ((:static-file "index.lml")))))))
