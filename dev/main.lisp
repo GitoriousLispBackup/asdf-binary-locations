@@ -1,4 +1,4 @@
-;;; ---------------------------------------------------------------------------
+ ;;; ---------------------------------------------------------------------------
 ;;; this bit of code was stolen from Bjorn Lindberg and then it grew!
 ;;;
 ;;; see http://www.cliki.net/asdf%20binary%20locations
@@ -8,11 +8,13 @@
 
 (in-package #:asdf)
 
-(export '(*source-to-target-mappings*
-          *default-toplevel-directory*
-          *centralize-lisp-binaries*
-          *include-per-user-information*
-          output-files-for-system-and-operation))
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (export '(*source-to-target-mappings*
+	    *default-toplevel-directory*
+	    *centralize-lisp-binaries*
+	    *include-per-user-information*
+	    output-files-for-system-and-operation
+	    implementation-specific-directory-name)))
 
 (defparameter *include-per-user-information*
   nil
