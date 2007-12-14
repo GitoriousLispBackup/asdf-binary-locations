@@ -18,24 +18,24 @@
 
 (defparameter *include-per-user-information*
   nil
-  "When \*centralize-lisp-binaries\* is true this variable controls whether or not to customize the output directory based on the current user. It can be nil, t or a string. If it is nil \(the default\), then no additional information will be added to the output directory. If it is t, then the user's name \(as taken from the return value of #'user-homedir-pathname\) will be included into the centralized path (just before the lisp-implementation directory). Finally, if \*include-per-user-information\* is a string, then this string will be included in the output-directory.")
+  "When \\*centralize-lisp-binaries\\* is true this variable controls whether or not to customize the output directory based on the current user. It can be nil, t or a string. If it is nil \(the default\), then no additional information will be added to the output directory. If it is t, then the user's name \(as taken from the return value of #'user-homedir-pathname\) will be included into the centralized path (just before the lisp-implementation directory). Finally, if \\*include-per-user-information\\* is a string, then this string will be included in the output-directory.")
 
 (defparameter *centralize-lisp-binaries*
   nil
-  "If true, compiled lisp files without an explicit mapping (see \*source-to-target-mappings\*) will be placed in subdirectories of \*default-toplevel-directory\*. If false, then compiled lisp files without an explicitly mapping will be placed in subdirectories of their sources.")
+  "If true, compiled lisp files without an explicit mapping (see \\*source-to-target-mappings\\*) will be placed in subdirectories of \\*default-toplevel-directory\\*. If false, then compiled lisp files without an explicitly mapping will be placed in subdirectories of their sources.")
 
 (defparameter *default-toplevel-directory*
   (merge-pathnames
    (make-pathname :directory '(:relative ".fasls"))
    (truename (user-homedir-pathname)))
-  "If \*centralize-lisp-binaries\* is true, then compiled lisp files without an explicit mapping \(see \*source-to-target-mappings\*\) will be placed in subdirectories of \*default-toplevel-directory\*.")
+  "If \\*centralize-lisp-binaries\\* is true, then compiled lisp files without an explicit mapping \(see \\*source-to-target-mappings\\*\) will be placed in subdirectories of \\*default-toplevel-directory\\*.")
 
 (defvar *source-to-target-mappings* 
   #-sbcl
   nil
   #+sbcl
   (list (list (princ-to-string (sb-ext:posix-getenv "SBCL_HOME")) nil))
-  "The \*source-to-target-mappings\* variable specifies mappings from source to target. If the target is nil, then it means to not map the source to anything. I.e., to leave it as is. This has the effect of turning off ASDF-Binary-Locations for the given source directory. Examples:
+  "The \\*source-to-target-mappings\\* variable specifies mappings from source to target. If the target is nil, then it means to not map the source to anything. I.e., to leave it as is. This has the effect of turning off ASDF-Binary-Locations for the given source directory. Examples:
 
     ;; compile everything in .../src and below into .../cmucl
     '((\"/nfs/home/compbio/d95-bli/share/common-lisp/src/\" 
@@ -47,7 +47,7 @@
 
 ;; obsolete variable check
 (when (boundp '*system-configuration-paths*)
-  (warn "The variable \*system-configuration-paths\* has been renamed to \*source-to-target-mappings\*. Please update your configuration files.")
+  (warn "The variable \\*system-configuration-paths\\* has been renamed to \\*source-to-target-mappings\\*. Please update your configuration files.")
   (setf *source-to-target-mappings* 
 	(symbol-value '*system-configuration-paths*)))
 
@@ -134,9 +134,9 @@ operating system, and hardware architecture."
    source possible-paths *source-to-target-mappings*))
 
 (defgeneric output-files-using-mappings (source possible-paths path-mappings)
-  (:documentation "Use the variable *system-configuration-mappings* to find an output path for the source. The algorithm transforms each entry in possible-paths as follows: If there is a mapping whose source starts with the path of possible-path, then replace possible-path with a pathname that starts with the target of the mapping and continues with the rest of possible-path. If no such mapping is found, then use the default mapping. 
+  (:documentation "Use the variable \\*system-configuration-mappings\\* to find an output path for the source. The algorithm transforms each entry in possible-paths as follows: If there is a mapping whose source starts with the path of possible-path, then replace possible-path with a pathname that starts with the target of the mapping and continues with the rest of possible-path. If no such mapping is found, then use the default mapping. 
 
-If *centralize-lisp-binaries* is false, then the default mapping is to place the output in a subdirectory of the source. The subdirectory is named using the Lisp implementation \(see implementation-specific-directory-name\). If *centralize-lisp-binaries* is true, then the default mapping is to place the output in subdirectories of *default-toplevel-directory* where the subdirectory structure will mirror that of the source."))
+If \\*centralize-lisp-binaries\\* is false, then the default mapping is to place the output in a subdirectory of the source. The subdirectory is named using the Lisp implementation \(see implementation-specific-directory-name\). If \\*centralize-lisp-binaries\\* is true, then the default mapping is to place the output in subdirectories of \\*default-toplevel-directory\\* where the subdirectory structure will mirror that of the source."))
 
 (defmethod output-files-using-mappings (source possible-paths path-mappings)
   (mapcar 
