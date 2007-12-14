@@ -1,3 +1,4 @@
 <div id="navigation">
-[User's Guide][user-guide]
+* [Home][index] 
+* [User's Guide][user-guide]
 </div>
