@@ -34,7 +34,7 @@ ABL's default binary location for each Lisp implementation is a subdirectory of 
  * Franz Allegro, version 8.0, ANSI Common Lisp:  allegro-8.0a-macosx-x86
  * Franz Allegro, version 8.1, Modern (case sensitive) Common Lisp: allegro-8.1m-macosx-x86
  
-It may be more convenient to keep FASL files out of sources entirely and  have ABL put all compiled files into subdirectories of a single central location (see [\*centralize-lisp-binaries\*][cbl] below).
+It may be more convenient to keep FASL files out of sources entirely and  have ABL put all compiled files into subdirectories of a single central location (see \*centralize-lisp-binaries\* below).
 
  [cbl]: #centralize-lisp-binaries
  
@@ -56,6 +56,8 @@ You can further customize ABL by writing additional methods on the generic funct
 {docs *source-to-target-mappings*}
 
 {docs *default-toplevel-directory*}
+
+{anchor centralize-lisp-binaries}
 
 {docs *centralize-lisp-binaries*}
 
