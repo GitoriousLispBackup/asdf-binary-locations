@@ -13,12 +13,9 @@
 	    *default-toplevel-directory*
 	    *centralize-lisp-binaries*
 	    *include-per-user-information*
+	    *map-all-source-files*
 	    output-files-for-system-and-operation
 	    implementation-specific-directory-name)))
-
-(defparameter *include-per-user-information*
-  nil
-  "When \\*centralize-lisp-binaries\\* is true this variable controls whether or not to customize the output directory based on the current user. It can be nil, t or a string. If it is nil \(the default\), then no additional information will be added to the output directory. If it is t, then the user's name \(as taken from the return value of #'user-homedir-pathname\) will be included into the centralized path (just before the lisp-implementation directory). Finally, if \\*include-per-user-information\\* is a string, then this string will be included in the output-directory.")
 
 (defparameter *centralize-lisp-binaries*
   nil
@@ -29,6 +26,14 @@
    (make-pathname :directory '(:relative ".fasls"))
    (truename (user-homedir-pathname)))
   "If \\*centralize-lisp-binaries\\* is true, then compiled lisp files without an explicit mapping \(see \\*source-to-target-mappings\\*\) will be placed in subdirectories of \\*default-toplevel-directory\\*.")
+
+(defparameter *include-per-user-information*
+  nil
+  "When \\*centralize-lisp-binaries\\* is true this variable controls whether or not to customize the output directory based on the current user. It can be nil, t or a string. If it is nil \(the default\), then no additional information will be added to the output directory. If it is t, then the user's name \(as taken from the return value of #'user-homedir-pathname\) will be included into the centralized path (just before the lisp-implementation directory). Finally, if \\*include-per-user-information\\* is a string, then this string will be included in the output-directory.")
+
+(defparameter *map-all-source-files*
+  nil
+  "If true, then all subclasses of source-file will have their output locations mapped by ASDF-Binary-Locations. If nil (the default), then only subclasses of cl-source-file will be mapped.")
 
 (defvar *source-to-target-mappings* 
   #-sbcl
@@ -179,12 +184,18 @@ If \\*centralize-lisp-binaries\\* is false, then the default mapping is to place
 		 :defaults path))))) 
 	  possible-paths))
 
-(defmethod output-files :around ((operation compile-op) (component source-file)) 
-  (let ((source (component-pathname component )) 
-        (paths (call-next-method))) 
-    (output-files-for-system-and-operation 
-     (component-system component) operation component source paths)))
+(defmethod output-files 
+    :around ((operation compile-op) (component source-file)) 
+  (when (or *map-all-source-files*
+	    (typecase component 
+	      (cl-source-file t)
+	      (t nil)))
+    (let ((source (component-pathname component )) 
+	  (paths (call-next-method))) 
+      (output-files-for-system-and-operation 
+       (component-system component) operation component source paths))))
 
+;; should be unnecessary with newer versions of ASDF
 ;; load customizations
 (eval-when (:load-toplevel :execute)
   (let* ((*package* (find-package :common-lisp))
