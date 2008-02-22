@@ -23,7 +23,7 @@ Author: Gary King
   (load (component-pathname component)))
 
 (defsystem asdf-binary-locations
-  :version "0.2.5"
+  :version "0.3.1"
   :author "Gary Warren King <gwking@metabang.com>"
   :maintainer "Gary Warren King <gwking@metabang.com>"
   :licence "MIT Style License"
@@ -40,4 +40,13 @@ Author: Gary King
                 "website"
                 :components
 		((:module "source"
-			  :components ((:static-file "index.lml")))))))
+			  :components ((:static-file "index.md"))))))
+  :in-order-to ((test-op (load-op asdf-binary-locations-test)))
+  :perform (test-op :after (op c)
+		    (funcall
+		     (intern (symbol-name '#:run-tests) :lift)
+		     :config :generic)))
+
+(defmethod operation-done-p 
+           ((o test-op) (c (eql (find-system 'asdf-binary-locations))))
+  (values nil))
