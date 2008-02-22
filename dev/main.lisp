@@ -203,12 +203,12 @@ If \\*centralize-lisp-binaries\\* is false, then the default mapping is to place
 ;; should be unnecessary with newer versions of ASDF
 ;; load customizations
 (eval-when (:load-toplevel :execute)
-  (let* ((*package* (find-package :common-lisp))
-         (file (probe-file (merge-pathnames
-			    (make-pathname :name "asdf-binary-locations"
-                                           :type "lisp"
-                                           :directory '(:relative ".asdf"))
-			    (truename (user-homedir-pathname)))))
-         )
-    (when file (load file))))
+  (let* ((*package* (find-package :common-lisp)))
+    (load
+     (merge-pathnames
+      (make-pathname :name "asdf-binary-locations"
+		     :type "lisp"
+		     :directory '(:relative ".asdf"))
+      (truename (user-homedir-pathname)))
+     :if-does-not-exist nil)))
 
