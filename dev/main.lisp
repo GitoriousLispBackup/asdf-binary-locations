@@ -59,28 +59,32 @@
 
 (defparameter *implementation-features*
   '(:allegro :lispworks :sbcl :openmcl :cmu :clisp :ccl
-    :corman :cormanlisp :armedbear :gcl :ecl))
+    :corman :cormanlisp :armedbear :gcl :ecl :scl))
 
 (defparameter *os-features*
   '(:macosx :linux :windows :mswindows :win32 :solaris 
     :darwin :sunos :unix :apple))
 
 (defparameter *architecture-features*
-  '(:powerpc :ppc :x86 :x86-64 :i686 :pc386 :iapx386 :sparc :pentium3))
+  '(:powerpc :ppc :x86 :x86-64 :amd64 :i686 :i586
+    :i486 :pc386 :iapx386 :sparc64 :sparc :hppa64 
+    :hppa :pentium3))
 
 ;; note to gwking: this is in slime, system-check, and system-check-server too
 (defun lisp-version-string ()
   #+cmu       (substitute #\- #\/ (lisp-implementation-version))
+  #+scl       (lisp-implementation-version)
   #+sbcl      (lisp-implementation-version)
   #+ecl       (lisp-implementation-version)
-  #+scl       (lisp-implementation-version)
   #+gcl       (let ((s (lisp-implementation-version))) (subseq s 4))
   #+openmcl   (format nil "~d.~d~@[-~d~]"
                       ccl::*openmcl-major-version* 
                       ccl::*openmcl-minor-version*
                       #+ppc64-target 64 
                       #-ppc64-target nil)
-  #+lispworks (lisp-implementation-version)
+  #+lispworks (format nil "~A~@[~A~]"
+                      (lisp-implementation-version)
+                      (when (member :lispworks-64bit *features*) "-64bit"))
   #+allegro   (format nil
                       "~A~A~A"
                       excl::*common-lisp-version-number*
@@ -186,14 +190,15 @@ If \\*centralize-lisp-binaries\\* is false, then the default mapping is to place
 
 (defmethod output-files 
     :around ((operation compile-op) (component source-file)) 
-  (when (or *map-all-source-files*
+  (if (or *map-all-source-files*
 	    (typecase component 
 	      (cl-source-file t)
 	      (t nil)))
     (let ((source (component-pathname component )) 
 	  (paths (call-next-method))) 
       (output-files-for-system-and-operation 
-       (component-system component) operation component source paths))))
+       (component-system component) operation component source paths))
+    (call-next-method)))
 
 ;; should be unnecessary with newer versions of ASDF
 ;; load customizations
