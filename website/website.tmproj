@@ -16,13 +16,13 @@
 			<key>filename</key>
 			<string>source/user-guide.css</string>
 			<key>lastUsed</key>
-			<date>2007-12-14T00:05:11Z</date>
+			<date>2008-02-04T16:29:46Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>source/user-guide.md</string>
 			<key>lastUsed</key>
-			<date>2007-12-14T00:11:08Z</date>
+			<date>2008-02-04T16:29:46Z</date>
 			<key>selected</key>
 			<true/>
 		</dict>
@@ -172,14 +172,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>161</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>36</integer>
+				<integer>66</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>58</integer>
+			<integer>97</integer>
 			<key>firstVisibleLine</key>
-			<integer>25</integer>
+			<integer>44</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
