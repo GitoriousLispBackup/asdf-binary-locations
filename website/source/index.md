@@ -63,7 +63,7 @@ A [Darcs][11] repository is available. The darcs command is listed below:
 
  [11]: http://www.darcs.net/
 
-    darcs get http://common-lisp.net/project/cl-containers/asdf-binary-locations/darcs/asdf-binary-locations 
+    darcs get http://common-lisp.net/project/asdf-binary-locations/
 
 ASDF-Binary-Locations is also [ASDF installable][12]. Its CLiki home is right [where][13] you'd expect.
 
@@ -72,7 +72,7 @@ ASDF-Binary-Locations is also [ASDF installable][12]. Its CLiki home is right [w
 
 There's also a handy [gzipped tar file][14].
 
-   [14]: http://common-lisp.net/project/cl-containers/asdf-binary-locations/asdf-binary-locations_latest.tar.gz
+   [14]: http://common-lisp.net/project/asdf-binary-locations/asdf-binary-locations_latest.tar.gz
 
 ### Notes and Issues
 
