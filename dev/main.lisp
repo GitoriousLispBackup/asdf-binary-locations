@@ -68,7 +68,7 @@
 (defparameter *architecture-features*
   '(:powerpc :ppc :x86 :x86-64 :amd64 :i686 :i586
     :i486 :pc386 :iapx386 :sparc64 :sparc :hppa64 
-    :hppa :pentium3))
+    :hppa :pentium3 :x86_64))
 
 ;; note to gwking: this is in slime, system-check, and system-check-server too
 (defun lisp-version-string ()
