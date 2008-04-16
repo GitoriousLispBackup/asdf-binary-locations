@@ -3,14 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>source/user-guide.md</string>
+	<string>source/index.md</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>source/index.md</string>
 			<key>lastUsed</key>
-			<date>2007-12-13T23:40:25Z</date>
+			<date>2008-04-11T17:15:00Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -22,9 +24,7 @@
 			<key>filename</key>
 			<string>source/user-guide.md</string>
 			<key>lastUsed</key>
-			<date>2008-02-04T16:29:46Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2008-04-11T17:15:00Z</date>
 		</dict>
 		<dict>
 			<key>expanded</key>
@@ -53,7 +53,7 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>58</integer>
 		</dict>
 		<key>source/resources/footer.md</key>
 		<dict>
@@ -177,9 +177,9 @@
 				<integer>66</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>97</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>44</integer>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
