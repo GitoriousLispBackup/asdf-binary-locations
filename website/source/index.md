@@ -88,6 +88,8 @@ There's also a handy [gzipped tar file][14].
 
 ### What is happening
 
+15 April 2007 - Paid taxes and posted the latest changes
+
 13 December 2007 - Exported `implementation-specific-directory-name`
 
 9 October 2006
