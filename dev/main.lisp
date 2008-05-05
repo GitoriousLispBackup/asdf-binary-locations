@@ -62,8 +62,11 @@
     :corman :cormanlisp :armedbear :gcl :ecl :scl))
 
 (defparameter *os-features*
-  '(:macosx :linux :windows :mswindows :win32 :solaris 
-    :darwin :sunos :unix :apple))
+  '(:windows :mswindows :win32
+    :solaris :sunos
+    :macosx :darwin :apple
+    :freebsd :netbsd :openbsd :bsd
+    :linux :unix))
 
 (defparameter *architecture-features*
   '(:powerpc :ppc :x86 :x86-64 :amd64 :i686 :i586
