@@ -1,7 +1,7 @@
 <div id="footer">
-{include resources/ug-navigation.md}
+{include ug-navigation.md}
 
-Copyright (c) 2005 - 2007 Gary Warren King (gwking@metabang.com) 
+Copyright (c) 2005 - 2008 Gary Warren King (gwking@metabang.com) 
 
 ASDF-Binary-Locations has an MIT style license
 
