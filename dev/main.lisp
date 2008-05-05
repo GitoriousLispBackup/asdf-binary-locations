@@ -75,7 +75,7 @@
 
 ;; note to gwking: this is in slime, system-check, and system-check-server too
 (defun lisp-version-string ()
-  #+cmu       (substitute #\- #\/ (lisp-implementation-version))
+  #+cmu       (substitute #\- #\/ (substitute #\_ #\Space (lisp-implementation-version)))
   #+scl       (lisp-implementation-version)
   #+sbcl      (lisp-implementation-version)
   #+ecl       (lisp-implementation-version)
