@@ -16,7 +16,7 @@ Author: Gary King
 (defclass load-only-cl-source-file (load-only-file-mixin cl-source-file)
   ())
 
-(defmethod perform ((op compile-op) (component load-only-file-mixin))
+(defmethod perform :around ((op compile-op) (component load-only-file-mixin))
   nil)
 
 (defmethod perform ((op load-op) (component load-only-cl-source-file))
