@@ -9,7 +9,7 @@
 
 ### Copyright (c) 2006 - 2008 Gary Warren King (gwking@metabang.com) 
 
-Trivial-Shell has an MIT style license
+ASDF-Binary-Locations has an MIT style license
 
 <div id="timestamp">Last updated {today} at {now}</div>
 </div>
