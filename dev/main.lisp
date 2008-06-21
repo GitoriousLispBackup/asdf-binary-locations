@@ -145,9 +145,25 @@ operating system, and hardware architecture."
    source possible-paths *source-to-target-mappings*))
 
 (defgeneric output-files-using-mappings (source possible-paths path-mappings)
-  (:documentation "Use the variable \\*system-configuration-mappings\\* to find an output path for the source. The algorithm transforms each entry in possible-paths as follows: If there is a mapping whose source starts with the path of possible-path, then replace possible-path with a pathname that starts with the target of the mapping and continues with the rest of possible-path. If no such mapping is found, then use the default mapping. 
+  (:documentation 
+"Use the variable \\*system-configuration-mappings\\* to find
+an output path for the source. The algorithm transforms each
+entry in possible-paths as follows: If there is a mapping
+whose source starts with the path of possible-path, then
+replace possible-path with a pathname that starts with the
+target of the mapping and continues with the rest of
+possible-path. If no such mapping is found, then use the
+default mapping.
 
-If \\*centralize-lisp-binaries\\* is false, then the default mapping is to place the output in a subdirectory of the source. The subdirectory is named using the Lisp implementation \(see implementation-specific-directory-name\). If \\*centralize-lisp-binaries\\* is true, then the default mapping is to place the output in subdirectories of \\*default-toplevel-directory\\* where the subdirectory structure will mirror that of the source."))
+If \\*centralize-lisp-binaries\\* is false, then the default
+mapping is to place the output in a subdirectory of the
+source. The subdirectory is named using the Lisp
+implementation \(see
+implementation-specific-directory-name\). If
+\\*centralize-lisp-binaries\\* is true, then the default
+mapping is to place the output in subdirectories of
+\\*default-toplevel-directory\\* where the subdirectory
+structure will mirror that of the source."))
 
 (defmethod output-files-using-mappings (source possible-paths path-mappings)
   (mapcar 

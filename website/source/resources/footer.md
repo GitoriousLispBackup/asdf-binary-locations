@@ -1,4 +1,4 @@
-<div id="footer">
+<div id="footer" class="footer">
 <div id="buttons">
 <a class="nav" href="http://validator.w3.org/check/referer" title="xhtml1.1"><img src="http://common-lisp.net/project/cl-containers/shared/buttons/xhtml.gif" width="80" height="15" title="valid xhtml button" alt="valid xhtml" /></a>
     <a class="nav" href="http://common-lisp.net/project/cl-markdown/" title="Mark with CL-Markdown"><img src="http://common-lisp.net/project/cl-containers/shared/buttons/cl-markdown.png" width="80" height="15" title="Made with CL-Markdown" alt="CL-Markdown" /></a>
@@ -8,8 +8,7 @@
 </div>
 
 ### Copyright (c) 2006 - 2008 Gary Warren King (gwking@metabang.com) 
-
-ASDF-Binary-Locations has an MIT style license
+ASDF-Binary-Locations has an [MIT style][mit-license] license
 
 <div id="timestamp">Last updated {today} at {now}</div>
 </div>
