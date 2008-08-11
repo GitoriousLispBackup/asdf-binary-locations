@@ -107,6 +107,8 @@ There's also a handy [gzipped tar file][tarball].
 
 ### What is happening
 
+11 Aug 2008 - Marko Kocic contributes some patches to improve ECL support. Thanks!
+
 5 May 2008 - Keeping up with the Jones and the rest of the
 Common-Lisp world; Stelian Ionescu rationalizes features
 lists. Thanks!
