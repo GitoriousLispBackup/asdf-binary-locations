@@ -62,22 +62,27 @@
     :corman :cormanlisp :armedbear :gcl :ecl :scl))
 
 (defparameter *os-features*
-  '(:windows :mswindows :win32
+  '(:windows :mswindows :win32 :mingw32
     :solaris :sunos
     :macosx :darwin :apple
     :freebsd :netbsd :openbsd :bsd
     :linux :unix))
 
 (defparameter *architecture-features*
-  '(:amd64 :x86-64 :x86_64 :i686 :i586 :pentium3 :i486 :i386 :pc386 :iapx386 :x86
+  '(:amd64 :x86-64 :x86_64 :i686 :i586 :pentium3 
+    :i486 :i386 :pc386 :iapx386 :x86 :pentium4
     :hppa64 :hppa :ppc64 :ppc32 :powerpc :ppc :sparc64 :sparc))
 
 ;; note to gwking: this is in slime, system-check, and system-check-server too
 (defun lisp-version-string ()
-  #+cmu       (substitute #\- #\/ (substitute #\_ #\Space (lisp-implementation-version)))
+  #+cmu       (substitute #\- #\/ 
+			  (substitute #\_ #\Space 
+				      (lisp-implementation-version)))
   #+scl       (lisp-implementation-version)
   #+sbcl      (lisp-implementation-version)
-  #+ecl       (lisp-implementation-version)
+  #+ecl       (reduce (lambda (x str) (substitute #\_ str x))
+		      '(#\Space #\: #\( #\)) 
+		      :initial-value (lisp-implementation-version))
   #+gcl       (let ((s (lisp-implementation-version))) (subseq s 4))
   #+openmcl   (format nil "~d.~d~@[-~d~]"
                       ccl::*openmcl-major-version* 
