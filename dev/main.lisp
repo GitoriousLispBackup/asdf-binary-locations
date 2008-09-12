@@ -1,4 +1,4 @@
- ;;; ---------------------------------------------------------------------------
+;;; ---------------------------------------------------------------------------
 ;;; this bit of code was stolen from Bjorn Lindberg and then it grew!
 ;;;
 ;;; see http://www.cliki.net/asdf%20binary%20locations
@@ -143,11 +143,27 @@ operating system, and hardware architecture."
   (system operation component source possible-paths)
   (:documentation "Returns the directory where the componets output files should be placed. This may depends on the system, the operation and the component. The ASDF default input and outputs are provided in the source and possible-paths parameters."))
 
+(defun source-to-target-resolved-mappings ()
+  "Answer `*source-to-target-mappings*` with additional entries made
+by resolving sources that are symlinks.
+
+As ASDF sometimes resolves symlinks to compute source paths, we must
+follow that.  For example, if SBCL is installed under a symlink, and
+SBCL_HOME is set through that symlink, the default rule above
+preventing SBCL contribs from being mapped elsewhere will not be
+applied by the plain `*source-to-target-mappings*`."
+  (loop for mapping in asdf:*source-to-target-mappings*
+	for (source target) = mapping
+	for true-source = (and source (resolve-symlinks source))
+	if (equal source true-source)
+	  collect mapping
+	else append (list mapping (list true-source target))))
+
 (defmethod output-files-for-system-and-operation
            ((system system) operation component source possible-paths)
   (declare (ignore operation component))
   (output-files-using-mappings
-   source possible-paths *source-to-target-mappings*))
+   source possible-paths (source-to-target-resolved-mappings)))
 
 (defgeneric output-files-using-mappings (source possible-paths path-mappings)
   (:documentation 
