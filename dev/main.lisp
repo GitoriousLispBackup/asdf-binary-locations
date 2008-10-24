@@ -147,8 +147,11 @@ operating system, and hardware architecture."
                                           implementation version.")))
                 (format nil "~(~@{~a~^-~}~)" lisp version os arch))))))
 
-(defun pathname-prefix-p (prefix pathname) 
-  (not (equal (enough-namestring pathname prefix) (namestring pathname)))) 
+(defun pathname-prefix-p (prefix pathname)
+  (let ((prefix-ns (namestring prefix))
+        (pathname-ns (namestring pathname)))
+    (= (length prefix-ns)
+       (mismatch prefix-ns pathname-ns))))
 
 (defgeneric output-files-for-system-and-operation
   (system operation component source possible-paths)
