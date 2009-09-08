@@ -107,30 +107,41 @@ There's also a handy [gzipped tar file][tarball].
 
 ### What is happening
 
-11 Aug 2008 - Marko Kocic contributes some patches to improve ECL support. Thanks!
+8 Sept 2009 
+: Scott Burson adds code to differentiate between international and non-international Allegro CL.
 
-5 May 2008 - Keeping up with the Jones and the rest of the
+11 Aug 2008
+: Marko Kocic contributes some patches to improve ECL support. Thanks!
+
+5 May 2008 
+: Keeping up with the Jones and the rest of the
 Common-Lisp world; Stelian Ionescu rationalizes features
 lists. Thanks!
 
-15 April 2007 - Paid taxes and posted the latest changes
+15 April 2007 
+:Paid taxes and posted the latest changes
 
-13 December 2007 - Exported
-`implementation-specific-directory-name`
+13 December 2007 
+: Exported `implementation-specific-directory-name`
 
-9 October 2006 Made compatible with SLIME's 64-bit Allegro
+9 October 2006 
+: Made compatible with SLIME's 64-bit Allegro
 locations (Thanks to Matthias Koeppe).
 
-31 July 2006 Added *include-per-user-information* (Thanks to
+31 July 2006 
+: Added *include-per-user-information* (Thanks to
 Erik Enge).
 
-15 June 2006 Happy now on 64-bit OpenMCL. Thanks to Joshua
+15 June 2006 
+: Happy now on 64-bit OpenMCL. Thanks to Joshua
 Moody.
 
-5 June 2006 Thanks to Peter Seibel and Robert Goldman for
+5 June 2006 
+: Thanks to Peter Seibel and Robert Goldman for
 helping to push out a bunch of useful improvements.
 
-19 Dec 2005 Created by munging great code together and added
+19 Dec 2005 
+: Created by munging great code together and added
 a bit of spice.
 
 </div>
