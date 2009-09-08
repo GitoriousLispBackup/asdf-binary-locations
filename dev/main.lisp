@@ -93,13 +93,18 @@
                       (lisp-implementation-version)
                       (when (member :lispworks-64bit *features*) "-64bit"))
   #+allegro   (format nil
-                      "~A~A~A"
+                      "~A~A~A~A"
                       excl::*common-lisp-version-number*
 					; ANSI vs MoDeRn
 		      ;; thanks to Robert Goldman and Charley Cox for
 		      ;; an improvement to my hack
 		      (if (eq excl:*current-case-mode* 
 			      :case-sensitive-lower) "M" "A")
+		      ;; Note if not using International ACL
+		      ;; see http://www.franz.com/support/documentation/8.1/doc/operators/excl/ics-target-case.htm
+		      (excl:ics-target-case
+			(:-ics "8")
+			(:+ics ""))
                       (if (member :64bit *features*) "-64bit" ""))
   #+clisp     (let ((s (lisp-implementation-version)))
                 (subseq s 0 (position #\space s)))
